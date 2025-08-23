@@ -12,26 +12,30 @@ sudo apt install -y nala preload vlc flatpak gnome-software-plugin-flatpak gnome
     ubuntu-restricted-extras gparted timeshift synaptic gufw neofetch git curl wget \
     build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils
 
-# Remove snap
-echo "Removing all Snap packages..."
-for pkg in $(snap list | awk '!/^Name/ {print $1}'); do
-    echo "   → Removing $pkg ..."
-    sudo snap remove --purge "$pkg"
-done
+# Remove Snap (if installed)
+if command -v snap &> /dev/null; then
+    echo "Removing all Snap packages..."
+    for pkg in $(snap list 2>/dev/null | awk '!/^Name/ {print $1}'); do
+        echo "   → Removing $pkg ..."
+        sudo snap remove --purge "$pkg" || true
+    done
 
-echo "Stopping and disabling Snap services..."
-sudo systemctl stop snapd.service
-sudo systemctl disable snapd.service
-sudo systemctl stop snapd.socket
-sudo systemctl disable snapd.socket
-sudo systemctl stop snapd.seeded.service
-sudo systemctl disable snapd.seeded.service
+    echo "Stopping and disabling Snap services..."
+    sudo systemctl stop snapd.service 2>/dev/null || true
+    sudo systemctl disable snapd.service 2>/dev/null || true
+    sudo systemctl stop snapd.socket 2>/dev/null || true
+    sudo systemctl disable snapd.socket 2>/dev/null || true
+    sudo systemctl stop snapd.seeded.service 2>/dev/null || true
+    sudo systemctl disable snapd.seeded.service 2>/dev/null || true
 
-echo "Removing Snap daemon..."
-sudo apt purge snapd -y
-sudo apt autoremove -y
-rm -rf ~/snap /snap /var/snap /var/lib/snapd /var/cache/snapd
-sudo apt-mark hold snapd
+    echo "Removing Snap daemon..."
+    sudo apt purge -y snapd || true
+    sudo apt autoremove -y
+    rm -rf ~/snap /snap /var/snap /var/lib/snapd /var/cache/snapd
+    sudo apt-mark hold snapd
+else
+    echo "Snap not found, skipping removal..."
+fi
 
 # Install firefox deb version
 echo "Installing Firefox (Deb version)..."
