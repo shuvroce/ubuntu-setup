@@ -134,7 +134,7 @@ gnome-extensions enable caffeine@patapon.info || true
 
 # Custom keyboard shortcut binding
 echo "Setting custom GNOME keyboard shortcuts..."
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]" || true
 
 shortcuts=(
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
@@ -149,7 +149,10 @@ shortcuts=(
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/"
 )
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "${shortcuts[@]}"
+# Join array into GVariant format
+shortcut_list=$(printf "'%s', " "${shortcuts[@]}")
+shortcut_list="[${shortcut_list%, }]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$shortcut_list" || true
 
 declare -A custom_shortcuts=(
     ["${shortcuts[0]}"]="Browser firefox '<Super>b'"
@@ -166,16 +169,16 @@ declare -A custom_shortcuts=(
 
 for path in "${!custom_shortcuts[@]}"; do
     IFS=$' ' read -r name cmd key <<< "${custom_shortcuts[$path]}"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" name "$name"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" command "$cmd"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" binding "$key"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" name "$name" || true
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" command "$cmd" || true
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:"$path" binding "$key" || true
 done
 
 echo "Setting workspace switching shortcuts..."
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']" || true
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']" || true
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']" || true
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']" || true
 
 # Cloudflare DNS setup
 echo "Setting DNS to Cloudflare..."
