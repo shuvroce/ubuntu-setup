@@ -155,7 +155,6 @@ gnome-shell-extension-installer --yes 3956 || true   # Fuzzy Search
 gnome-shell-extension-installer --yes 1319 || true   # GS Connect
 gnome-shell-extension-installer --yes 615 || true    # App Indicator
 gnome-shell-extension-installer --yes 517 || true    # Caffein
-gnome-shell-extension-installer --yes 1198 || true   # Start Overlay
 gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop
 gnome-shell-extension-installer --yes 3204 || true   # ESC Overview
 gnome-shell-extension-installer --yes 1337 || true   # Show Apps instead of Workspaces
@@ -176,7 +175,6 @@ gnome-extensions enable gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gi
 # gnome-extensions enable gsconnect@andyholmes.github.io || true
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com || true
 gnome-extensions enable caffeine@patapon.info || true
-gnome-extensions enable start-overlay-in-application-view@Hex_cz || true
 gnome-extensions enable add-to-desktop@tommimon.github.com || true
 gnome-extensions enable escape-overview@raelgc || true
 gnome-extensions enable show_applications_instead_of_overview@fawtytoo || true
