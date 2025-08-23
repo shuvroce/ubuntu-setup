@@ -10,7 +10,7 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing apt packages..."
 sudo apt install -y nala preload vlc flatpak gnome-software-plugin-flatpak gnome-tweaks gnome-shell-extension-manager \
     ubuntu-restricted-extras gparted timeshift synaptic gufw neofetch git git-core zsh curl wget \
-    build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils
+    build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils ddcutil
 
 # Remove Snap (if installed)
 if command -v snap &> /dev/null; then
@@ -44,12 +44,12 @@ UNWANTED_APPS=(
     thunderbird
     libreoffice*    # removes all LibreOffice components
     rhythmbox
-    cheese          # webcam app
+    cheese
     gnome-mahjongg
     gnome-mines
     gnome-sudoku
-    aisleriot       # solitaire
-    remmina         # remote desktop
+    aisleriot
+    remmina
     shotwell
     transmission-gtk
 )
@@ -155,14 +155,40 @@ gnome-shell-extension-installer --yes 3956 || true   # Fuzzy Search
 gnome-shell-extension-installer --yes 1319 || true   # GS Connect
 gnome-shell-extension-installer --yes 615 || true    # App Indicator
 gnome-shell-extension-installer --yes 517 || true    # Caffein
+gnome-shell-extension-installer --yes 1198 || true   # Start Overlay
+gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop
+gnome-shell-extension-installer --yes 3204 || true   # ESC Overview
+gnome-shell-extension-installer --yes 1337 || true   # Show Apps instead of Workspaces
+gnome-shell-extension-installer --yes 355 || true    # Status area horizontal spacing
+gnome-shell-extension-installer --yes 7 || true      # Drive menu
+gnome-shell-extension-installer --yes 7565 || true   # Netspeed monitor
+gnome-shell-extension-installer --yes 2645 || true   # Brightness control
+gnome-shell-extension-installer --yes 3843 || true   # Just Perfection
+gnome-shell-extension-installer --yes 7048 || true   # Rounded Corners
+gnome-shell-extension-installer --yes 5489 || true   # Search Light
+gnome-shell-extension-installer --yes 4356 || true   # Top bar organizer
+gnome-shell-extension-installer --yes 779 || true    # Clipboard indicator
 
 echo "Enabling extensions..."
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com || true
 gnome-extensions enable blur-my-shell@aunetx || true
 gnome-extensions enable gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com || true
-gnome-extensions enable gsconnect@andyholmes.github.io || true
+# gnome-extensions enable gsconnect@andyholmes.github.io || true
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com || true
 gnome-extensions enable caffeine@patapon.info || true
+gnome-extensions enable start-overlay-in-application-view@Hex_cz || true
+gnome-extensions enable add-to-desktop@tommimon.github.com || true
+gnome-extensions enable escape-overview@raelgc || true
+gnome-extensions enable show_applications_instead_of_overview@fawtytoo || true
+gnome-extensions enable status-area-horizontal-spacing@mathematical.coffee.gmail.com || true
+gnome-extensions enable drive-menu@gnome-shell-extensions.gcampax.github.com || true
+gnome-extensions enable netspeed-monitor@ajxv || true
+gnome-extensions enable display-brightness-ddcutil@themightydeity.github.com || true
+gnome-extensions enable just-perfection-desktop@just-perfection || true
+gnome-extensions enable rounded-window-corners@fxgn || true
+gnome-extensions enable search-light@icedman.github.com || true
+gnome-extensions enable top-bar-organizer@julian.gse.jsts.xyz || true
+# gnome-extensions enable clipboard-indicator@tudmotu.com || true
 
 # Custom keyboard shortcut binding
 echo "Setting custom GNOME keyboard shortcuts..."
