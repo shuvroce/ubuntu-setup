@@ -33,8 +33,13 @@ ubuntu-setup/
 
 * Fresh Ubuntu installation with **GNOME** desktop.
 * Internet connection.
+* git installed
 * Optional: local `.deb` packages in `ubuntu-setup/deb`.
 
+## Install Git
+```bash
+sudo apt install git -y
+```
 
 ## Usage
 
@@ -138,6 +143,19 @@ Any scripts placed in `ubuntu-setup/scripts/` will be copied to `~/bin` and made
 ./remove-app.sh <package-id>        # Ex - org.mozilla.firefox
 ```
 
+## Terminal Profile
+For a posh teminal profile, follow instruction from:
+
+```bash
+https://github.com/pixegami/terminal-profile
+```
+
+## Configure Firefox profile
+For Firefox profile, visit:
+
+```bash
+https://ffprofile.com/ to config firefox
+```
 
 ## Notes
 
