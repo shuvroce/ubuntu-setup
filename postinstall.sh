@@ -264,12 +264,12 @@ mkdir -p ~/.oh-my-zsh/custom/plugins
 (cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zsh-users/zsh-autosuggestions || true)
 
 # Apply custom configs
-cp terminal-profile/configs/.zshrc ~/.zshrc || true
-cp terminal-profile/configs/pixegami-agnoster.zsh-theme ~/.oh-my-zsh/themes/ || true
+cp configs/.zshrc ~/.zshrc || true
+cp configs/pixegami-agnoster.zsh-theme ~/.oh-my-zsh/themes/ || true
 
 # Load GNOME Terminal profile
 profile_id="fb358fc9-49ea-4252-ad34-1d25c649e633"
-dconf load /org/gnome/terminal/legacy/profiles:/:$profile_id/ < terminal-profile/configs/terminal_profile.dconf || true
+dconf load /org/gnome/terminal/legacy/profiles:/:$profile_id/ < configs/terminal_profile.dconf || true
 
 # Add profile to GNOME Terminal list
 old_list=$(dconf read /org/gnome/terminal/legacy/profiles:/list 2>/dev/null | tr -d "]")
