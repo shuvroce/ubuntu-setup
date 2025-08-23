@@ -2,7 +2,6 @@
 
 This repository contains a **post-installation automation script** for Ubuntu (GNOME) that installs your preferred software, sets system settings, configures GNOME extensions, applies keyboard shortcuts, sets Bengali fonts, removes Snap, and prepares a ready-to-use development and multimedia environment.
 
----
 
 ## Features
 
@@ -17,7 +16,6 @@ This repository contains a **post-installation automation script** for Ubuntu (G
 * Copies **custom scripts** to `~/bin` and makes them executable.
 * Applies **GNOME settings from dconf backup**.
 
----
 
 ## Directory Structure
 
@@ -30,7 +28,6 @@ ubuntu-setup/
 └── postinstall.sh     # Main automation script
 ```
 
----
 
 ## Prerequisites
 
@@ -38,7 +35,6 @@ ubuntu-setup/
 * Internet connection.
 * Optional: local `.deb` packages in `ubuntu-setup/deb`.
 
----
 
 ## Usage
 
@@ -64,7 +60,6 @@ chmod +x ~/ubuntu-setup/postinstall.sh
 
 4. After completion, **reboot** the system to apply all GNOME settings and extensions.
 
----
 
 ## Customizations
 
@@ -100,7 +95,6 @@ chmod +x ~/ubuntu-setup/postinstall.sh
 * Configures **default Bengali font** for GNOME UI.
 * Installs **Avro Keyboard**.
 
----
 
 ## Flatpak Apps
 
@@ -121,19 +115,16 @@ Installed from **Flathub**:
 
 > Apps that fail to install will not stop the script.
 
----
 
 ## Local .deb Packages
 
 Place your `.deb` files in `ubuntu-setup/deb/` and the script will install them automatically.
 
----
 
 ## Utility Scripts
 
 Any scripts placed in `ubuntu-setup/scripts/` will be copied to `~/bin` and made executable, allowing you to run them as commands.
 
----
 
 ## Notes
 
@@ -142,7 +133,6 @@ Any scripts placed in `ubuntu-setup/scripts/` will be copied to `~/bin` and made
 * GNOME settings are applied from `dconf` backup if available.
 * The script is meant for **fresh Ubuntu installations**; running it multiple times is safe but may reinstall packages.
 
----
 
 ## License
 
