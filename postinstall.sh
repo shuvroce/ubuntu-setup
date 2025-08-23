@@ -13,6 +13,12 @@ sudo apt install -y nala preload vlc flatpak gnome-software-plugin-flatpak gnome
     build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils
 
 # Remove snap
+echo "Removing all Snap packages..."
+for pkg in $(snap list | awk '!/^Name/ {print $1}'); do
+    echo "   → Removing $pkg ..."
+    sudo snap remove --purge "$pkg"
+done
+
 echo "Stopping and disabling Snap services..."
 sudo systemctl stop snapd.service
 sudo systemctl disable snapd.service
@@ -20,12 +26,6 @@ sudo systemctl stop snapd.socket
 sudo systemctl disable snapd.socket
 sudo systemctl stop snapd.seeded.service
 sudo systemctl disable snapd.seeded.service
-
-echo "Removing all Snap packages..."
-for pkg in $(snap list | awk '!/^Name/ {print $1}'); do
-    echo "   → Removing $pkg ..."
-    sudo snap remove --purge "$pkg"
-done
 
 echo "Removing Snap daemon..."
 sudo apt purge snapd -y
@@ -56,7 +56,6 @@ sudo apt install -y firefox
 echo "Setting up Flatpak..."
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# only add essential apps, may remove some from here
 flatpak_apps=(
     "io.github.debasish_patra_1987.linuxthemestore" 
     "com.discordapp.Discord"

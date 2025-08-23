@@ -33,10 +33,10 @@ ubuntu-setup/
 
 * Fresh Ubuntu installation with **GNOME** desktop.
 * Internet connection.
-* git installed
+* git installeds
 * Optional: local `.deb` packages in `ubuntu-setup/deb`.
 
-## Install Git
+### Install Git
 ```bash
 sudo apt install git -y
 ```
@@ -164,7 +164,3 @@ https://ffprofile.com/ to config firefox
 * GNOME settings are applied from `dconf` backup if available.
 * The script is meant for **fresh Ubuntu installations**; running it multiple times is safe but may reinstall packages.
 
-
-## License
-
-MIT License. You can freely modify and redistribute the scripts.
