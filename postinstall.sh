@@ -113,12 +113,20 @@ sudo chmod +x /usr/local/bin/gnome-shell-extension-installer
 
 # add all the others necessay extensions
 echo "Installing GNOME Extensions..."
-gnome-shell-extension-installer --yes 5173   # Fuzzy search
-gnome-shell-extension-installer --yes 3193   # Blur My Shell
+gnome-shell-extension-installer --yes 19 || true     # User Themes
+gnome-shell-extension-installer --yes 3193 || true   # Blur My Shell
+gnome-shell-extension-installer --yes 3956 || true   # Fuzzy Search
+gnome-shell-extension-installer --yes 1319 || true   # GS Connect
+gnome-shell-extension-installer --yes 615 || true    # App Indicator
+gnome-shell-extension-installer --yes 517 || true    # Caffein
 
 echo "Enabling extensions..."
-gnome-extensions enable fuzzy-app-search@gnome-shell-extensions.2nv2u.com
-gnome-extensions enable blur-my-shell@aunetx
+gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com || true
+gnome-extensions enable blur-my-shell@aunetx || true
+gnome-extensions enable gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com || true
+gnome-extensions enable gsconnect@andyholmes.github.io || true
+gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com || true
+gnome-extensions enable caffeine@patapon.info || true
 
 # Custom keyboard shortcut binding
 echo "Setting custom GNOME keyboard shortcuts..."
