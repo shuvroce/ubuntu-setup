@@ -1,0 +1,32 @@
+#!/bin/bash
+# remove-app.sh — Universal app remover for Debian (deb + flatpak)
+
+APP="$1"
+
+if [ -z "$APP" ]; then
+    echo "Usage: $0 <app-name or flatpak-id>"
+    exit 1
+fi
+
+# --- Try .deb package removal ---
+if dpkg -l | grep -q "^ii  $APP "; then
+    echo "Found $APP as .deb package. Removing..."
+    sudo apt purge -y "$APP"
+    sudo apt autoremove -y
+    rm -rf ~/.config/"$APP" ~/.local/share/"$APP" ~/.cache/"$APP"
+    echo "$APP (.deb) completely removed."
+    exit 0
+fi
+
+# --- Try Flatpak app removal ---
+if flatpak list --app | awk '{print $1}' | grep -q "^$APP$"; then
+    echo "Found $APP as Flatpak app. Removing..."
+    flatpak uninstall -y "$APP"
+    flatpak uninstall --unused -y
+    rm -rf ~/.var/app/"$APP"
+    echo "$APP (Flatpak) completely removed."
+    exit 0
+fi
+
+echo "App '$APP' not found as .deb or Flatpak."
+exit 1
