@@ -9,7 +9,7 @@ sudo apt update && sudo apt upgrade -y
 # Install apt packages
 echo "Installing apt packages..."
 sudo apt install -y nala preload vlc flatpak gnome-software-plugin-flatpak gnome-tweaks gnome-shell-extension-manager \
-    ubuntu-restricted-extras gparted timeshift synaptic gufw neofetch git curl wget \
+    ubuntu-restricted-extras gparted timeshift synaptic gufw neofetch git git-core zsh curl wget \
     build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils
 
 # Remove Snap (if installed)
@@ -36,6 +36,38 @@ if command -v snap &> /dev/null; then
 else
     echo "Snap not found, skipping removal..."
 fi
+
+# Remove unwanted preinstalled apps
+echo "Removing unwanted preinstalled apps..."
+
+UNWANTED_APPS=(
+    thunderbird
+    libreoffice*    # removes all LibreOffice components
+    rhythmbox
+    cheese          # webcam app
+    gnome-mahjongg
+    gnome-mines
+    gnome-sudoku
+    aisleriot       # solitaire
+    remmina         # remote desktop
+    shotwell
+    transmission-gtk
+)
+
+for app in "${UNWANTED_APPS[@]}"; do
+    if dpkg -l | grep -q "$app"; then
+        echo "   → Removing $app ..."
+        sudo apt purge -y "$app" || true
+        rm -rf "$HOME/.config/$app" || true
+        rm -rf "$HOME/.local/share/$app" || true
+        rm -rf "$HOME/.cache/$app" || true
+    else
+        echo "   → $app not installed, skipping."
+    fi
+done
+
+sudo apt autoremove -y
+
 
 # Install firefox deb version
 echo "Installing Firefox (Deb version)..."
@@ -189,14 +221,70 @@ nmcli con up "$(nmcli -t -f NAME con show --active | head -n1)"
 echo "Installing Avro Keyboard..."
 sudo apt install -y ibus-avro
 
-echo "Setting default Bangla font..."
-sudo apt install fonts-noto-core
-sudo apt install fonts-noto-ui-core
+# Install Fonts
+echo "Installing fonts..."
+fonts_dir="$( cd "$( dirname "$0" )" && pwd )/fonts"
+font_dir="$HOME/.local/share/fonts"
+mkdir -p "$font_dir"
 
-sudo rm -f /usr/share/fonts/truetype/freefont/FreeSans*
-sudo rm -f /usr/share/fonts/truetype/freefont/FreeSerif*
+if [ -d "$fonts_dir" ]; then
+    cp -a "$fonts_dir/." "$font_dir/"
+    echo "Fonts copied to $font_dir"
+fi
+
+echo "Installing Bangla fonts..."
+sudo apt install -y fonts-noto-core fonts-noto-ui-core || true
+
+sudo rm -f /usr/share/fonts/truetype/freefont/FreeSans* || true
+sudo rm -f /usr/share/fonts/truetype/freefont/FreeSerif* || true
 
 fc-cache -f -v
+
+# Wallpapers
+echo "Adding wallpapers to $HOME/Pictures/Wallpaper..."
+mkdir -p "$HOME/Pictures/Wallpaper"
+
+# Script directory
+script_dir="$( cd "$( dirname "$0" )" && pwd )"
+
+if [ -d "$script_dir/wallpapers" ]; then
+    cp -a "$script_dir/wallpapers/." "$HOME/Pictures/Wallpaper/"
+    echo "Wallpapers added successfully!"
+else
+    echo "No 'wallpapers' folder found in $script_dir, skipping..."
+fi
+
+# Install Terminal Profile
+echo "Installing Zsh + Oh-My-Zsh..."
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+
+# Install Zsh plugins
+mkdir -p ~/.oh-my-zsh/custom/plugins
+(cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zsh-users/zsh-syntax-highlighting || true)
+(cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zsh-users/zsh-autosuggestions || true)
+
+# Apply custom configs
+cp terminal-profile/configs/.zshrc ~/.zshrc || true
+cp terminal-profile/configs/pixegami-agnoster.zsh-theme ~/.oh-my-zsh/themes/ || true
+
+# Load GNOME Terminal profile
+profile_id="fb358fc9-49ea-4252-ad34-1d25c649e633"
+dconf load /org/gnome/terminal/legacy/profiles:/:$profile_id/ < terminal-profile/configs/terminal_profile.dconf || true
+
+# Add profile to GNOME Terminal list
+old_list=$(dconf read /org/gnome/terminal/legacy/profiles:/list 2>/dev/null | tr -d "]")
+if [ -z "$old_list" ]; then
+    front_list="["
+else
+    front_list="$old_list, "
+fi
+new_list="$front_list'$profile_id']"
+dconf write /org/gnome/terminal/legacy/profiles:/list "$new_list" || true
+dconf write /org/gnome/terminal/legacy/profiles:/default "'$profile_id'" || true
+
+# Switch shell to zsh
+chsh -s "$(which zsh)"
+
 
 # Copy ulility scripts to bin to run from terminal when necessary
 echo "Copying utility scripts..."
@@ -204,4 +292,8 @@ mkdir -p ~/bin
 cp "$SETUP_DIR/scripts/"* ~/bin/ || true
 chmod +x ~/bin/*
 
-echo "Setup complete! Please reboot."
+read -p "Reboot now? [y/N] " ans
+if [[ "$ans" =~ ^[Yy]$ ]]; then
+    sudo reboot
+fi
+
