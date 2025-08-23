@@ -125,6 +125,19 @@ Place your `.deb` files in `ubuntu-setup/deb/` and the script will install them 
 
 Any scripts placed in `ubuntu-setup/scripts/` will be copied to `~/bin` and made executable, allowing you to run them as commands.
 
+## Uninstall/Remove apps completely (deb/flatpak)
+* To remove deb app completely, run the script from terminal:
+
+```bash
+./remove-app.sh <package-name>      # Ex - firefox-esr
+```
+
+* To remove flatpak app completely, run the script from terminal:
+
+```bash
+./remove-app.sh <package-id>        # Ex - org.mozilla.firefox
+```
+
 
 ## Notes
 
