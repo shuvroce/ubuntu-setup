@@ -313,10 +313,15 @@ chsh -s "$(which zsh)"
 
 # Copy ulility scripts to bin to run from terminal when necessary
 echo "Copying utility scripts..."
-sudo mkdir -p /usr/local/bin
-sudo cp "$SETUP_DIR/scripts/"* /usr/local/bin/ || true
-sudo chmod +x /usr/local/bin/*
+sudo chmod +x "$SETUP_DIR"/scripts/*
 
+sudo mkdir -p /usr/local/bin
+sudo mkdir -p /etc/bash_completion.d
+
+sudo cp "$SETUP_DIR/scripts/remove-app.sh" /usr/local/bin/remove || true
+sudo cp "$SETUP_DIR/scripts/remove-comp.sh" /etc/bash_completion.d/remove || true
+
+# Reboot system
 read -p "Reboot now? [y/N] " ans
 if [[ "$ans" =~ ^[Yy]$ ]]; then
     sudo reboot
