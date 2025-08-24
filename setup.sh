@@ -308,7 +308,8 @@ dconf write /org/gnome/terminal/legacy/profiles:/list "$new_list" || true
 dconf write /org/gnome/terminal/legacy/profiles:/default "'$profile_id'" || true
 
 # Switch shell to zsh
-chsh -s "$(which zsh)"
+echo "Changing default shell to Zsh..."
+sudo usermod -s "$(which zsh)" "$USER" || true
 
 
 # Copy ulility scripts to bin to run from terminal when necessary
@@ -322,7 +323,7 @@ sudo cp "$SETUP_DIR/scripts/remove-app.sh" /usr/local/bin/remove || true
 sudo cp "$SETUP_DIR/scripts/remove-comp.sh" /etc/bash_completion.d/remove || true
 
 # Reboot system
-read -p "Reboot now? [y/N] " ans
+read -p "Reboot now? [Y/N] " ans
 if [[ "$ans" =~ ^[Yy]$ ]]; then
     sudo reboot
 fi
