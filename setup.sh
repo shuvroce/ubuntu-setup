@@ -132,7 +132,7 @@ gnome-shell-extension-installer --yes 3956 || true   # Fuzzy Search
 gnome-shell-extension-installer --yes 1319 || true   # GS Connect
 gnome-shell-extension-installer --yes 615 || true    # App Indicator
 gnome-shell-extension-installer --yes 517 || true    # Caffein
-gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop //not found............................
+gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop
 gnome-shell-extension-installer --yes 3204 || true   # ESC Overview
 gnome-shell-extension-installer --yes 1337 || true   # Show Apps instead of Workspaces
 gnome-shell-extension-installer --yes 355 || true    # Status area horizontal spacing

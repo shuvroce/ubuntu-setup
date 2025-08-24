@@ -29,7 +29,8 @@ ubuntu-setup/
 │   └── gnome-settings.conf
 ├── scripts/           # Custom scripts to copy to /usr/local/bin
 ├── wallpapers/        # Wallpapers to copy to ~/Pictures/Wallpaper
-└── setup.sh           # Main automation script
+├── setup.sh           # Main automation script
+└── apps.sh            # Flatpak apps installation script
 ```
 
 
@@ -70,6 +71,12 @@ chmod +x ~/ubuntu-setup/setup.sh
 
 5. After completion, **reboot** the system to apply all GNOME settings and extensions.
 
+### Install Flatpak Apps
+Run `apps.sh` script:
+
+```bash
+~/ubuntu-setup/apps.sh
+```
 
 ## Customizations
 
@@ -96,8 +103,8 @@ chmod +x ~/ubuntu-setup/setup.sh
 
 ### Keyboard Shortcuts
 
-| Shortcut                | Action                          |
-| ----------------------- | ------------------------------- |
+| Shortcut                  | Action                          |
+| ------------------------- | ------------------------------- |
 | Super + B                 | Browser                         |
 | Super + C                 | VS Code                         |
 | Super + E                 | File Explorer                   |

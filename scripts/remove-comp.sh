@@ -7,7 +7,7 @@ _remove_complete() {
     # --- DEB packages ---
     local debs deb_names
     debs=$(dpkg-query -W -f='${Package}\n')
-    deb_names=$(dpkg-query -W -f='${Package} ${Description}\n' | awk '{print $2}' | sed 's/ /_/g')  # human-readable
+    deb_names=$(dpkg-query -W -f='${Package} ${Description}\n' | awk '{print $2}' | sed 's/ /_/g')
 
     # --- Snap packages ---
     local snaps snap_names
@@ -17,7 +17,7 @@ _remove_complete() {
     # --- Flatpak apps ---
     local flatpak_ids flatpak_names
     flatpak_ids=$(flatpak list --app --columns=application 2>/dev/null)
-    flatpak_names=$(flatpak list --app --columns=name 2>/dev/null | sed 's/ /_/g')
+    flatpak_names=$(flatpak list --app --columns=name 2>/dev/null | sed 's/ /\\ /g')
 
     # Merge all options
     opts="$debs $deb_names $snaps $snap_names $flatpak_ids $flatpak_names"
