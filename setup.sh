@@ -89,9 +89,14 @@ Pin-Priority: 1001
 sudo apt update
 sudo apt install -y firefox
 
-# Set-up flatpak & Install Flatpak apps
+# Set-up Flatpak & Install Flatpak apps
 echo "Setting up Flatpak..."
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+if ! flatpak remote-list | grep -q '^flathub'; then
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    echo "Flathub remote added."
+else
+    echo "Flathub remote already exist, skipping..."
+fi
 
 flatpak_apps=(
     "io.github.debasish_patra_1987.linuxthemestore" 
