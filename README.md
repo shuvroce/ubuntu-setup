@@ -7,6 +7,7 @@ This repository contains a **post-installation automation script** for Ubuntu (G
 
 * Fully **automated setup** after a fresh Ubuntu installation.
 * Removes **Snap** and installs the **Debian Firefox** version.
+* Removes unwanted pre-installed apps.
 * Installs essential **APT packages** and developer tools.
 * Installs **Flatpak apps** (Discord, Telegram, GIMP, OBS, LibreOffice, Zoom, and more).
 * Sets up **GNOME extensions** and **keyboard shortcuts**.
@@ -51,14 +52,15 @@ sudo apt install git -y
 ```bash
 git clone https://github.com/shuvroce/ubuntu-setup.git ~/ubuntu-setup
 ```
+2. Place your `.deb` files in `ubuntu-setup/deb/` and the script will install them automatically. (Optional)
 
-2. Make the script executable:
+3. Make the script executable:
 
 ```bash
 chmod +x ~/ubuntu-setup/setup.sh
 ```
 
-3. Run the script:
+4. Run the script:
 
 ```bash
 ~/ubuntu-setup/setup.sh
@@ -66,31 +68,46 @@ chmod +x ~/ubuntu-setup/setup.sh
 
 > The script uses `sudo` for package installation, system configuration, and Snap removal. You may be prompted for your password multiple times.
 
-4. After completion, **reboot** the system to apply all GNOME settings and extensions.
+5. After completion, **reboot** the system to apply all GNOME settings and extensions.
 
 
 ## Customizations
 
 ### GNOME Extensions
 
-* Fuzzy Search
+* User Themes
 * Blur My Shell
-* Dash-to-Dock (minimize on click)
+* Fuzzy Search
+* GS Connect
+* App Indicator
+* Caffein
+* Add to Desktop
+* ESC Overview
+* Show Apps instead of Workspaces
+* Status area horizontal spacing
+* Drive menu
+* Netspeed monitor
+* Brightness control
+* Just Perfection
+* Rounded Corners
+* Search Light
+* Top bar organizer
+* Clipboard indicator
 
 ### Keyboard Shortcuts
 
 | Shortcut                | Action                          |
 | ----------------------- | ------------------------------- |
-| Win + B                 | Browser                         |
-| Win + C                 | VS Code                         |
-| Win + E                 | File Explorer                   |
-| Win + T                 | Terminal                        |
-| Win + S                 | Settings                        |
-| Win + R                 | Resource Monitor / Task Manager |
-| Win + X                 | Extension Manager               |
-| Win + N                 | Notepad / Text Editor           |
-| Win + Q                 | Quit Program                    |
-| Win + 1..4              | Switch to Workspace 1..4        |
+| Super + B                 | Browser                         |
+| Super + C                 | VS Code                         |
+| Super + E                 | File Explorer                   |
+| Super + T                 | Terminal                        |
+| Super + S                 | Settings                        |
+| Super + R                 | Resource Monitor / Task Manager |
+| Super + X                 | Extension Manager               |
+| Super + N                 | Notepad / Text Editor           |
+| Super + Q                 | Quit Program                    |
+| Super + 1..4              | Switch to Workspace 1..4        |
 
 ### DNS
 
@@ -124,30 +141,31 @@ Installed from **Flathub**:
 > Apps that fail to install will not stop the script.
 
 
-## Local .deb Packages
-
-Place your `.deb` files in `ubuntu-setup/deb/` and the script will install them automatically.
-
-
 ## Utility Scripts
 
-Any scripts placed in `ubuntu-setup/scripts/` will be copied to `~/bin` and made executable, allowing you to run them as commands.
+Any scripts placed in `ubuntu-setup/scripts/` will be copied to `usr/local/bin` and made executable, allowing you to run them as commands.
 
 ## Uninstall/Remove apps completely (deb/flatpak)
 * To remove deb app completely, run the script from terminal:
 
 ```bash
-./remove-app.sh <package-name>      # Ex - firefox-esr
+sudo remove <package-name>         # Ex - firefox-esr
 ```
 
-* To remove flatpak app completely, run the script from terminal:
+* To remove flatpak app completely:
 
 ```bash
-./remove-app.sh <package-id>        # Ex - org.mozilla.firefox
+sudo remove <package-id>           # Ex - org.mozilla.firefox
+```
+
+* To remove snap app completely:
+
+```bash
+sudo remove <package-name>         # Ex - firefox
 ```
 
 ## Terminal Profile
-For a posh teminal profile, follow instruction from:
+The posh terminal profile is installed from:
 
 ```bash
 https://github.com/pixegami/terminal-profile
