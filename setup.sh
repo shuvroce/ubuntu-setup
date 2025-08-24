@@ -244,7 +244,6 @@ fc-cache -f -v
 echo "Adding wallpapers to $HOME/Pictures/Wallpaper..."
 mkdir -p "$HOME/Pictures/Wallpaper"
 
-# Script directory
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
 if [ -d "$script_dir/wallpapers" ]; then
@@ -263,15 +262,12 @@ mkdir -p ~/.oh-my-zsh/custom/plugins
 (cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zsh-users/zsh-syntax-highlighting || true)
 (cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zsh-users/zsh-autosuggestions || true)
 
-# Apply custom configs
 cp configs/.zshrc ~/.zshrc || true
 cp configs/pixegami-agnoster.zsh-theme ~/.oh-my-zsh/themes/ || true
 
-# Load GNOME Terminal profile
 profile_id="fb358fc9-49ea-4252-ad34-1d25c649e633"
 dconf load /org/gnome/terminal/legacy/profiles:/:$profile_id/ < configs/terminal_profile.dconf || true
 
-# Add profile to GNOME Terminal list
 old_list=$(dconf read /org/gnome/terminal/legacy/profiles:/list 2>/dev/null | tr -d "]")
 if [ -z "$old_list" ]; then
     front_list="["
@@ -282,10 +278,8 @@ new_list="$front_list'$profile_id']"
 dconf write /org/gnome/terminal/legacy/profiles:/list "$new_list" || true
 dconf write /org/gnome/terminal/legacy/profiles:/default "'$profile_id'" || true
 
-# Switch shell to zsh
 echo "Changing default shell to Zsh..."
 sudo usermod -s "$(which zsh)" "$USER" || true
-
 
 # Copy ulility scripts to bin to run from terminal when necessary
 echo "Copying utility scripts..."
@@ -303,7 +297,6 @@ grep -qxF 'autoload -Uz +X bashcompinit && bashcompinit' ~/.zshrc || \
 
 grep -qxF 'source /etc/bash_completion.d/remove' ~/.zshrc || \
     echo 'source /etc/bash_completion.d/remove' >> ~/.zshrc
-
 
 # Reboot system
 echo "System reboot required for changes to take effect."
