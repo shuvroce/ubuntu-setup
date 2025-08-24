@@ -313,9 +313,9 @@ chsh -s "$(which zsh)"
 
 # Copy ulility scripts to bin to run from terminal when necessary
 echo "Copying utility scripts..."
-mkdir -p ~/bin
-cp "$SETUP_DIR/scripts/"* ~/bin/ || true
-chmod +x ~/bin/*
+sudo mkdir -p /usr/local/bin
+sudo cp "$SETUP_DIR/scripts/"* /usr/local/bin/ || true
+sudo chmod +x /usr/local/bin/*
 
 read -p "Reboot now? [y/N] " ans
 if [[ "$ans" =~ ^[Yy]$ ]]; then

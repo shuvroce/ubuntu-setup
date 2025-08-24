@@ -14,7 +14,7 @@ if dpkg -l | grep -q "^ii  $APP "; then
     sudo apt purge -y "$APP"
     sudo apt autoremove -y
     rm -rf ~/.config/"$APP" ~/.local/share/"$APP" ~/.cache/"$APP"
-    echo "$APP (.deb) completely removed."
+    echo "✔ $APP (.deb) completely removed."
     exit 0
 fi
 
@@ -24,7 +24,7 @@ if flatpak list --app | awk '{print $1}' | grep -q "^$APP$"; then
     flatpak uninstall -y "$APP"
     flatpak uninstall --unused -y
     rm -rf ~/.var/app/"$APP"
-    echo "$APP (Flatpak) completely removed."
+    echo "✔ $APP (Flatpak) completely removed."
     exit 0
 fi
 
@@ -35,7 +35,7 @@ if snap list | awk '{print $1}' | grep -q "^$APP$"; then
     # Snap sometimes leaves revisions → cleanup
     sudo snap remove --purge "$APP" 2>/dev/null
     rm -rf ~/snap/"$APP"
-    echo "$APP (Snap) completely removed."
+    echo "✔ $APP (Snap) completely removed."
     exit 0
 fi
 
