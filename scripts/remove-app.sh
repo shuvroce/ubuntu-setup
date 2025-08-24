@@ -19,7 +19,7 @@ if dpkg -l | grep -q "^ii  $APP "; then
 fi
 
 # --- Try Flatpak app removal ---
-if flatpak list --app | awk '{print $1}' | grep -q "^$APP$"; then
+if flatpak list --app --columns=application | grep -q "^$APP$"; then
     echo "Found $APP as Flatpak app. Removing..."
     flatpak uninstall -y "$APP"
     flatpak uninstall --unused -y
@@ -29,7 +29,7 @@ if flatpak list --app | awk '{print $1}' | grep -q "^$APP$"; then
 fi
 
 # --- Try Snap app removal ---
-if snap list | awk '{print $1}' | grep -q "^$APP$"; then
+if snap list | tail -n +2 | awk '{print $1}' | grep -q "^$APP$"; then
     echo "Found $APP as Snap package. Removing..."
     sudo snap remove "$APP"
     # Snap sometimes leaves revisions → cleanup

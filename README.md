@@ -156,19 +156,19 @@ Any scripts placed in `ubuntu-setup/scripts/` will be copied to `usr/local/bin` 
 * To remove deb app completely, run the script from terminal:
 
 ```bash
-sudo remove <package-name>         # Ex - firefox-esr
+remove <package-name>         # Ex - firefox-esr
 ```
 
 * To remove flatpak app completely:
 
 ```bash
-sudo remove <package-id>           # Ex - org.mozilla.firefox
+remove <package-id>           # Ex - org.mozilla.firefox
 ```
 
 * To remove snap app completely:
 
 ```bash
-sudo remove <package-name>         # Ex - firefox
+remove <package-name>         # Ex - firefox
 ```
 
 ## Terminal Profile
