@@ -18,6 +18,7 @@ if command -v snap &> /dev/null; then
     for pkg in $(snap list 2>/dev/null | awk '!/^Name/ {print $1}'); do
         echo "   → Removing $pkg ..."
         sudo snap remove --purge "$pkg" || true
+        rm -rf ~/snap/"$pkg" || true
     done
 
     echo "Stopping and disabling Snap services..."

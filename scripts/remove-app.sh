@@ -1,10 +1,10 @@
 #!/bin/bash
-# remove-app.sh — Universal app remover for Debian (deb + flatpak)
+# remove-app.sh — Universal app remover for Debian (deb + flatpak + snap)
 
 APP="$1"
 
 if [ -z "$APP" ]; then
-    echo "Usage: $0 <app-name or flatpak-id>"
+    echo "Usage: $0 <app-name or flatpak-id or snap-name>"
     exit 1
 fi
 
@@ -28,5 +28,16 @@ if flatpak list --app | awk '{print $1}' | grep -q "^$APP$"; then
     exit 0
 fi
 
-echo "App '$APP' not found as .deb or Flatpak."
+# --- Try Snap app removal ---
+if snap list | awk '{print $1}' | grep -q "^$APP$"; then
+    echo "Found $APP as Snap package. Removing..."
+    sudo snap remove "$APP"
+    # Snap sometimes leaves revisions → cleanup
+    sudo snap remove --purge "$APP" 2>/dev/null
+    rm -rf ~/snap/"$APP"
+    echo "$APP (Snap) completely removed."
+    exit 0
+fi
+
+echo "App '$APP' not found as .deb, Flatpak, or Snap."
 exit 1
