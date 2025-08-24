@@ -16,20 +16,18 @@ if dpkg -l | grep -q "^ii  $APP "; then
     rm -rf ~/.config/"$APP" ~/.local/share/"$APP" ~/.cache/"$APP"
     echo "✔ $APP (.deb) completely removed."
     exit 0
-fi
 
 # --- Try Flatpak app removal ---
-if flatpak list --app --columns=application | grep -q "^$APP$"; then
+elif flatpak list --app --columns=application | grep -q "^$APP$"; then
     echo "Found $APP as Flatpak app. Removing..."
     flatpak uninstall -y "$APP"
     flatpak uninstall --unused -y
     rm -rf ~/.var/app/"$APP"
     echo "✔ $APP (Flatpak) completely removed."
     exit 0
-fi
 
 # --- Try Snap app removal ---
-if snap list | tail -n +2 | awk '{print $1}' | grep -q "^$APP$"; then
+elif command -v snap >/dev/null 2>&1 && snap list | awk '{print $1}' | grep -q "^$APP$"; then
     echo "Found $APP as Snap package. Removing..."
     sudo snap remove "$APP"
     # Snap sometimes leaves revisions → cleanup
@@ -37,7 +35,7 @@ if snap list | tail -n +2 | awk '{print $1}' | grep -q "^$APP$"; then
     rm -rf ~/snap/"$APP"
     echo "✔ $APP (Snap) completely removed."
     exit 0
+else
+    echo "App '$APP' not found as .deb, Flatpak, or Snap."
+    exit 1
 fi
-
-echo "App '$APP' not found as .deb, Flatpak, or Snap."
-exit 1
