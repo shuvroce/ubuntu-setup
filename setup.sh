@@ -98,36 +98,7 @@ else
     echo "Flathub remote already exist, skipping..."
 fi
 
-flatpak_apps=(
-    "io.github.debasish_patra_1987.linuxthemestore" 
-    "com.discordapp.Discord"
-    "org.telegram.desktop"
-    "org.gimp.GIMP"
-    "org.bleachbit.BleachBit"
-    "com.obsproject.Studio"
-    "org.libreoffice.LibreOffice"
-    "com.usebottles.bottles"
-    "org.gnome.World.PikaBackup"
-    "org.zotero.Zotero"
-    "com.spotify.Client"
-    "com.sindresorhus.Caprine"
-    "garden.jamie.Morphosis"
-    "io.github.josephmawa.Bella"
-    "com.belmoussaoui.Authenticator"
-    "net.codelogistics.webapps"
-    "org.gnome.Decibels"
-    "org.mozilla.vpn"
-    "app.drey.Dialect"
-    "com.hunterwittenborn.Celeste"
-    "io.github.david_swift.Flashcards"
-    "us.zoom.Zoom"
-    # ...other apps
-)
-
-for app in "${flatpak_apps[@]}"; do
-    echo "Installing Flatpak app: $app"
-    flatpak install -y flathub "$app" || true
-done
+sudo chmod +x ./apps.sh
 
 # Install local deb apps
 echo "Installing local .deb files..."
@@ -161,7 +132,7 @@ gnome-shell-extension-installer --yes 3956 || true   # Fuzzy Search
 gnome-shell-extension-installer --yes 1319 || true   # GS Connect
 gnome-shell-extension-installer --yes 615 || true    # App Indicator
 gnome-shell-extension-installer --yes 517 || true    # Caffein
-gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop //not found
+gnome-shell-extension-installer --yes 1369 || true   # Add to Desktop //not found............................
 gnome-shell-extension-installer --yes 3204 || true   # ESC Overview
 gnome-shell-extension-installer --yes 1337 || true   # Show Apps instead of Workspaces
 gnome-shell-extension-installer --yes 355 || true    # Status area horizontal spacing
@@ -211,7 +182,6 @@ shortcuts=(
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/"
 )
 
-# Join array into GVariant format
 shortcut_list=$(printf "'%s', " "${shortcuts[@]}")
 shortcut_list="[${shortcut_list%, }]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$shortcut_list" || true
@@ -336,6 +306,7 @@ grep -qxF 'source /etc/bash_completion.d/remove' ~/.zshrc || \
 
 
 # Reboot system
+echo "System reboot required for changes to take effect."
 read -p "Reboot now? [Y/N] " ans
 if [[ "$ans" =~ ^[Yy]$ ]]; then
     sudo reboot
