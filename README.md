@@ -10,10 +10,10 @@ This repository contains a **post-installation automation script** for Ubuntu (G
 * Installs essential **APT packages** and developer tools.
 * Installs **Flatpak apps** (Discord, Telegram, GIMP, OBS, LibreOffice, Zoom, and more).
 * Sets up **GNOME extensions** and **keyboard shortcuts**.
-* Configures **workspace shortcuts** (Win+1..4, Ctrl+Win+Left/Right).
+* Configures **workspace shortcuts** (Super+1..4).
 * Sets **Cloudflare DNS**.
 * Installs **Bengali fonts** and **Avro Keyboard**.
-* Copies **custom scripts** to `~/bin` and makes them executable.
+* Copies **custom scripts** to `/usr/local/bin` and makes them executable.
 * Applies **GNOME settings from dconf backup**.
 
 
@@ -21,10 +21,13 @@ This repository contains a **post-installation automation script** for Ubuntu (G
 
 ```
 ubuntu-setup/
+├── configs/           # Terminal profile config file
+├── fonts/
 ├── deb/               # Local .deb packages (VSCode, IntelliJ IDEA, etc.)
 ├── dconf/             # GNOME dconf backup for settings
 │   └── gnome-settings.conf
-├── scripts/           # Custom scripts to copy to ~/bin
+├── scripts/           # Custom scripts to copy to /usr/local/bin
+├── wallpapers/        # Wallpapers to copy to ~/Pictures/Wallpaper
 └── postinstall.sh     # Main automation script
 ```
 
@@ -33,7 +36,7 @@ ubuntu-setup/
 
 * Fresh Ubuntu installation with **GNOME** desktop.
 * Internet connection.
-* git installeds
+* git installed
 * Optional: local `.deb` packages in `ubuntu-setup/deb`.
 
 ### Install Git
