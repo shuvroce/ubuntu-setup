@@ -28,7 +28,7 @@ ubuntu-setup/
 │   └── gnome-settings.conf
 ├── scripts/           # Custom scripts to copy to /usr/local/bin
 ├── wallpapers/        # Wallpapers to copy to ~/Pictures/Wallpaper
-└── postinstall.sh     # Main automation script
+└── setup.sh           # Main automation script
 ```
 
 
@@ -55,13 +55,13 @@ git clone https://github.com/shuvroce/ubuntu-setup.git ~/ubuntu-setup
 2. Make the script executable:
 
 ```bash
-chmod +x ~/ubuntu-setup/postinstall.sh
+chmod +x ~/ubuntu-setup/setup.sh
 ```
 
 3. Run the script:
 
 ```bash
-~/ubuntu-setup/postinstall.sh
+~/ubuntu-setup/setup.sh
 ```
 
 > The script uses `sudo` for package installation, system configuration, and Snap removal. You may be prompted for your password multiple times.
