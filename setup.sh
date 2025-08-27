@@ -10,7 +10,8 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing apt packages..."
 sudo apt install -y nala preload vlc flatpak gnome-software-plugin-flatpak gnome-tweaks gnome-shell-extension-manager \
     ubuntu-restricted-extras gparted timeshift synaptic gufw neofetch git git-core zsh curl wget \
-    build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils ddcutil
+    build-essential cmake make gcc g++ nodejs npm gdebi unrar dconf-editor x11-utils ddcutil \
+    qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
 
 # Remove Snap (if installed)
 if command -v snap &> /dev/null; then
