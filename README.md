@@ -30,6 +30,7 @@ ubuntu-setup/
 ├── scripts/           # Custom scripts to copy to /usr/local/bin
 ├── wallpapers/        # Wallpapers to copy to ~/Pictures/Wallpaper
 ├── setup.sh           # Main automation script
+├── extensions.sh      # Extensions installation script
 └── apps.sh            # Flatpak apps installation script
 ```
 
@@ -71,12 +72,6 @@ chmod +x ~/ubuntu-setup/setup.sh
 
 5. After completion, **reboot** the system to apply all GNOME settings and extensions.
 
-### Install Flatpak Apps
-Run `apps.sh` script:
-
-```bash
-~/ubuntu-setup/apps.sh
-```
 
 ## Customizations
 
@@ -100,6 +95,13 @@ Run `apps.sh` script:
 * Search Light
 * Top bar organizer
 * Clipboard indicator
+
+### Install Extensions
+Run `extensions.sh` script:
+
+```bash
+~/ubuntu-setup/extensions.sh
+```
 
 ### Keyboard Shortcuts
 
@@ -145,6 +147,13 @@ Installed from **Flathub**:
 * Spotify
 * Zoom
 
+### Install Flatpak Apps
+Run `apps.sh` script:
+
+```bash
+~/ubuntu-setup/apps.sh
+```
+
 > Apps that fail to install will not stop the script.
 
 
@@ -171,18 +180,26 @@ remove <package-id>           # Ex - org.mozilla.firefox
 remove <package-name>         # Ex - firefox
 ```
 
-## Terminal Profile
+## Others
+### Terminal Profile
 The posh terminal profile is installed from:
 
 ```bash
 https://github.com/pixegami/terminal-profile
 ```
 
-## Configure Firefox profile
+### Configure Firefox profile
 For Firefox profile, visit:
 
 ```bash
 https://ffprofile.com/ to config firefox
+```
+
+### Remove Discord Ads
+Follow the tutorial for better discore:
+
+```bash
+https://github.com/CroissantDuNord/discord-adblock
 ```
 
 ## Notes

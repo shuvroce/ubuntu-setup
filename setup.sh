@@ -89,6 +89,11 @@ Pin-Priority: 1001
 sudo apt update
 sudo apt install -y firefox
 
+# Files/Nautilus Extensions
+echo "Installing Nautilus Extensions..."
+wget -qO- https://raw.githubusercontent.com/harry-cpp/code-nautilus/master/install.sh | bash
+sudo apt install nautilus-admin
+
 # Set-up Flatpak & Install Flatpak apps
 echo "Setting up Flatpak..."
 if ! flatpak remote-list | grep -q '^flathub'; then
