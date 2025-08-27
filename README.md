@@ -181,6 +181,7 @@ remove <package-name>         # Ex - firefox
 ```
 
 ## Others
+
 ### Terminal Profile
 The posh terminal profile is installed from:
 

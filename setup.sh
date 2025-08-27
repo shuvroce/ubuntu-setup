@@ -91,8 +91,8 @@ sudo apt install -y firefox
 
 # Files/Nautilus Extensions
 echo "Installing Nautilus Extensions..."
-wget -qO- https://raw.githubusercontent.com/harry-cpp/code-nautilus/master/install.sh | bash
 sudo apt install nautilus-admin
+wget -qO- https://raw.githubusercontent.com/harry-cpp/code-nautilus/master/install.sh | bash
 
 # Set-up Flatpak & Install Flatpak apps
 echo "Setting up Flatpak..."
