@@ -117,7 +117,7 @@ fi
 
 # Restore general settings
 echo "Restoring GNOME settings & keybindings from backup (if available)..."
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize-or-previews'
 
 if [ -f "$SETUP_DIR/dconf/gnome-settings.conf" ]; then
     dconf load / < "$SETUP_DIR/dconf/gnome-settings.conf"
